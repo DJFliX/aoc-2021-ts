@@ -5,10 +5,16 @@ interface Config {
     sessionCookie: string
 }
 
+/**
+ * Deserialises the configuration from the filesystem
+ */
 const getConfig = async (): Promise<Config> => {
     return JSON.parse((await getFile('config.json')))
 }
 
+/**
+ * Retrieves a file from the filesystem
+ */
 const getFile = async (targetFilename: string): Promise<string> => {
     return new Promise((res, rej) => {
         readFile(targetFilename, 'utf-8', (err, data) => {
@@ -18,7 +24,9 @@ const getFile = async (targetFilename: string): Promise<string> => {
     })
 }
 
-
+/**
+ * Checks whether the file at the provided path exists
+ */
 const exists = async (filename: string): Promise<boolean> => {
     return new Promise((res, rej) => {
         open(filename, 'r', (err, fd) => {
@@ -37,10 +45,16 @@ const exists = async (filename: string): Promise<boolean> => {
     })
 }
 
+/**
+ * Writes a file to the filesystem
+ */
 const _writeFile = async (filename: string, data: string): Promise<void> => {
   return writeFile(filename, data, () => { });
 }
 
+/**
+ * Retrieves the puzzle input for the provided day on the calendar
+ */
 const getPuzzleInput = async (day: number): Promise<string> => {
     const targetFilename = `./inputs/day${day}.txt`
     const fileExists = await exists(targetFilename);

@@ -1,7 +1,7 @@
 import { exists, writeFile } from './lib/util'
 import { mkdirSync } from 'fs';
 
-const baseDate = new Date(2021, 10, 30, 7, 0, 0), // I'm in CET
+const baseDate = new Date(2021, 10, 30, 7, 0, 0), // I'm in CET so using this will give me the current puzzle # that is unlocked
   now = new Date(),
   timeDiff = now.getTime() - baseDate.getTime(),
   currentPuzzleDay = Math.floor(timeDiff / (1000 * 3600 * 24));
