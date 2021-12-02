@@ -1,4 +1,4 @@
-import { getPuzzleInput } from '../lib/util';
+import { getPuzzleInput } from '../../lib/util';
 
 getPuzzleInput(1).then((input) => {
   let increases = 0;

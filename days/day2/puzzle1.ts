@@ -1,4 +1,4 @@
-import { getPuzzleInput } from '../lib/util';
+import { getPuzzleInput } from '../../lib/util';
 import { Instruction, Direction } from './types'
 
 getPuzzleInput(2).then((input) => {

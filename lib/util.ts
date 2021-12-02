@@ -37,6 +37,10 @@ const exists = async (filename: string): Promise<boolean> => {
     })
 }
 
+const _writeFile = async (filename: string, data: string): Promise<void> => {
+  return writeFile(filename, data, () => { });
+}
+
 const getPuzzleInput = async (day: number): Promise<string> => {
     const targetFilename = `./inputs/day${day}.txt`
     const fileExists = await exists(targetFilename);
@@ -52,10 +56,8 @@ const getPuzzleInput = async (day: number): Promise<string> => {
                 cookie: config.sessionCookie
             }
         })
-        console.log(response);
         if (response.ok) {
             const text = await response.text();
-            console.log(text);
             if (text.indexOf("Please don't repeatedly request") === 0) {
                 throw new Error("");
             } else {
@@ -68,4 +70,4 @@ const getPuzzleInput = async (day: number): Promise<string> => {
     }
 }
 
-export { getPuzzleInput }
+export { getPuzzleInput, exists, _writeFile as writeFile }

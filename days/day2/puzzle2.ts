@@ -1,4 +1,4 @@
-import { getPuzzleInput } from '../lib/util';
+import { getPuzzleInput } from '../../lib/util';
 import { Direction, Instruction, Tracker } from './types'
 
 getPuzzleInput(2).then((input) => {
@@ -9,8 +9,7 @@ getPuzzleInput(2).then((input) => {
         d: parts[0] as Direction,
         a: parseInt(parts[1].trim())
       }
-    }
-    )
+    })
 
   const pos: Tracker = {
     depth: 0,
