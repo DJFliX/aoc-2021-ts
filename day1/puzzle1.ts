@@ -1,8 +1,9 @@
-import { readFileSync } from 'fs'
+import { getPuzzleInput } from '../lib/util';
 
-let increases = 0;
-readFileSync("./day1/input.txt", 'utf-8').split("\n").map((s) => parseInt(s.trim())).forEach((curr, idx, arr) => {
-    if(idx > 0 && curr > arr[idx-1]) increases++;
+getPuzzleInput(1).then((input) => {
+  let increases = 0;
+  input.split("\n").map((s) => parseInt(s.trim())).forEach((curr, idx, arr) => {
+    if (idx > 0 && curr > arr[idx - 1]) increases++;
+  })
+  console.log(`${increases} increases`)
 })
-
-console.log(`${increases} increases`)
