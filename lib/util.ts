@@ -108,4 +108,23 @@ const init2dArray: GenericFunctionType = (x, y, initVal) => {
   return res;
 }
 
+declare global {
+  interface Array<T>
+  {
+    groupBy<T, K>(func:(x:T) => K): Map<K, T[]>
+  }
+}
+
+Array.prototype.groupBy = function<T, K>(this: T[], func: (x:T) => K) {
+	let map = new Map<K, T[]>();
+	this.forEach(item => {
+		let itemKey = func(item);
+		if (map.has(itemKey))
+      map.get(itemKey)!.push(item)
+		else 
+			map.set(itemKey, [item]);
+	});
+	return map;
+}
+
 export { getPuzzleInput, exists, _writeFile as writeFile, init2dArray }
