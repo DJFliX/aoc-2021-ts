@@ -1,39 +1,23 @@
-
-import { getPuzzleInput } from '../../lib/util';
+import { getPuzzleInput } from "../../lib/util";
 
 getPuzzleInput(6).then((input) => {
-  const fishInitValues = input.split(",").map(Number)
-  // const fishInitValues = `3,4,3,1,2`.split(",").map(Number)
-  let ogFish = fishInitValues.map(initValue => initValue)
-  let fishArrays: number[][] = [[]]
-  for(let arrCnt = 0; arrCnt < 16000; arrCnt++) {
-    fishArrays[arrCnt] = [];
+  const fishInitValues = input.split(",").map(Number);
+  let fishAges = new Array(9).fill(0);
+  for (let starterFishAge of fishInitValues) {
+    fishAges[starterFishAge]++;
   }
-  let spawnCount = 0;
-  const advance = (fishState: number): number => {
-    if(fishState === 0) {
-      spawnCount++;
-      return 6;
-    } else {
-      return --fishState;
-    }
+  for (let i = 0; i < 256; i++) {
+    console.log("day " + i + ": " + fishAges.join(", "))
+    // Each day, a 0 becomes a 6 and adds a new 8 to the end of the list, 
+    // while each other number decreases by 1 if it was present at the start of the day
+    const fishOnZero = fishAges.shift(); // move fishes to next bin, set fishes with 0 as respawned fishes
+    fishAges[8] = fishOnZero; // new fish on timer 8 == number of fish that "gave birth"
+    fishAges[6] += fishOnZero; // number of fish that were spawned
   }
 
-  for (let day = 1; day <= 256; day++, spawnCount = 0) {
-    ogFish = ogFish.map(p => advance(p))
-    for(let arrCnt = 0; arrCnt < fishArrays.length; arrCnt++) {
-      fishArrays[arrCnt] = fishArrays[arrCnt].map(p => advance(p));
-    }
+  const finalResultForThisFish =
+    fishAges
+      .reduce((a, b) => a + b, 0)
 
-    for(let newFish = 0; newFish < spawnCount; newFish++) {
-      for(let arrCnt = 0; arrCnt < fishArrays.length; arrCnt++) {
-        if(fishArrays[arrCnt].length < 80000000) {
-          fishArrays[arrCnt].push(8);
-          break;
-        }
-      }
-    }
-    console.log(`After ${day} days ${ogFish.length + fishArrays.map((v) => v.length).reduce((a, b) => a + b, 0)}`)
-  }
-
-})
+  console.log("total fish: " + finalResultForThisFish);
+});
