@@ -7,6 +7,8 @@ interface sigPat {
 }
 
 // I'm pretty sure someone way smarter will do it in 5 lines or less.
+// Also yeah, splitting all the time is dumb, especially if you're joining on the initial parse.
+// But again, this ain't code golf. 
 getPuzzleInput(8).then((input) => {
   const lines = input.split("\n")
   const pats: sigPat[] = lines.filter(line => line.length > 2).map(line => {
@@ -36,7 +38,6 @@ getPuzzleInput(8).then((input) => {
     const sigPt = pats[patIdx];
     let shouldRerun = false;
     const setDecodedSigAtPos = (idx: number, value: string): void => {
-      console.log(`Decoded a ${value} at sigIdx ${idx} in pattern ${patIdx}`)
       sigPt.inputNumDecoded = replaceAt(sigPt.inputNumDecoded, idx, value)
     }
     for (let sigIdx = 0; sigIdx < sigPt.inputs.length; sigIdx++) {
@@ -96,11 +97,8 @@ getPuzzleInput(8).then((input) => {
       }
       if (sigIdx === sigPt.inputs.length - 1) {
         if (shouldRerun) {
-          console.log(`Triggering rerun for ${patIdx} ${sigIdx}. Findings so far: ${sigPt.inputNumDecoded}`)
           shouldRerun = false;
           sigIdx = -1;
-        } else {
-          console.log("Done! Result: " + sigPt.inputNumDecoded)
         }
       }
     }
