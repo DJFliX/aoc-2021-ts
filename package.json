@@ -2,7 +2,10 @@
   "name": "advent-of-code-2021",
   "packageManager": "yarn@3.1.1",
   "devDependencies": {
+    "@types/jest": "^27.0.3",
     "@types/node": "^16.11.11",
+    "jest": "^27.4.4",
+    "ts-jest": "^27.1.1",
     "typescript": "^4.5.2"
   },
   "dependencies": {
@@ -10,6 +13,7 @@
     "node-fetch": "2.x.x"
   },
   "scripts": {
-    "create:day": "yarn dlx ts-node ./create.ts"
+    "create:day": "yarn dlx ts-node ./create.ts",
+    "test": "jest"
   }
 }
