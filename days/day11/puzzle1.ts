@@ -10,9 +10,6 @@ getPuzzleInput(11).then((input) => {
 
   for(let i = 0; i < 100; i++) {
     flashes += grid.takeStep();
-    console.log(`step ${i + 1}`)
-    console.log(flashes)
-    console.log(grid.grid.map(row => row.join("")).join("\n"))
   }
 
   console.log(flashes)
