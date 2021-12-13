@@ -93,14 +93,7 @@ interface GenenicMkRowFn {
 }
 
 const init2dArray: GenericFunctionType = (x, y, initVal) => {
-  const mkR: GenenicMkRowFn = (count, initVal) => {
-    let r: (typeof initVal)[] = [];
-    for (let i = 0; i < count; i++) {
-      r.push(initVal)
-    }
-    return r;
-  }
-  let row = mkR(x, initVal);
+  let row = new Array(x).fill(initVal);
   let res: (typeof initVal)[][] = [];
   for (let i = 0; i < y; i++) {
     res.push([...row]);
@@ -112,6 +105,7 @@ declare global {
   interface Array<T>
   {
     groupBy<T, K>(func:(x:T) => K): Map<K, T[]>
+    sum<T>(): number
   }
 }
 
